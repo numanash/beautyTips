@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   Image,
+  TouchableOpacity,
   FlatList
 } from "react-native";
 import Pagination from "../Utils/Pagination";
@@ -43,7 +44,9 @@ class TipsListing extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.currentPage !== this.state.currentPage) {
       let currentPage;
-      (this.state.currentPage === 0) ? currentPage = 1 : currentPage = this.state.currentPage;
+      this.state.currentPage === 0
+        ? (currentPage = 1)
+        : (currentPage = this.state.currentPage);
       fetch(`https://www.winsomeglow.com/api/admin/posts?page=${currentPage}`)
         .then(res => res.json())
         .then(result => {
@@ -66,8 +69,7 @@ class TipsListing extends Component {
     return (
       <View style={styles.container}>
         {this.state.tips ? (
-
-          <View style={{ height: 350 }}>
+          <View style={{ height: 300 }}>
             <FlatList
               style={{ width: "100%" }}
               data={this.state.tips}
@@ -75,6 +77,7 @@ class TipsListing extends Component {
               renderItem={({ item }) => {
                 const { id, post_featured_images, post_title } = item;
                 return (
+                  // <TouchableOpacity onPress={}>
                   <View
                     style={{
                       width: "100%",
@@ -103,34 +106,50 @@ class TipsListing extends Component {
                       </Text>
                       <Text style={{ textTransform: "capitalize" }}>
                         {post_title}&nbsp; for you. Click To read in detail
-                    </Text>
+                      </Text>
                     </View>
                   </View>
-
+                  // </TouchableOpacity>
                 );
               }}
             />
           </View>
         ) : (
-            <View style={{ alignItems: "center", justifyContent: "center", height: 350 }}>
-              <ActivityIndicator
-                color="green"
-                size={80}
-                animating={this.state.tips ? false : true}
-              />
-            </View>
-          )}
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              height: 300
+            }}
+          >
+            <ActivityIndicator
+              color="green"
+              size={80}
+              animating={this.state.tips ? false : true}
+            />
+          </View>
+        )}
 
-        <Pagination onPressNext={() => {
-          this.setState((prevState) => {
-            return { currentPage: prevState.currentPage + 1, tips: undefined }
-          })
-        }}
+        <Pagination
+          onPressNext={() => {
+            this.setState(prevState => {
+              return {
+                currentPage: prevState.currentPage + 1,
+                tips: undefined
+              };
+            });
+          }}
           onPressPrevious={() => {
-            this.setState((prevState) => {
-              return { currentPage: prevState.currentPage - 1, tips: undefined }
-            })
-          }} currentPage={this.state.currentPage} lastPage={this.state.lastPage} />
+            this.setState(prevState => {
+              return {
+                currentPage: prevState.currentPage - 1,
+                tips: undefined
+              };
+            });
+          }}
+          currentPage={this.state.currentPage}
+          lastPage={this.state.lastPage}
+        />
       </View>
     );
   }

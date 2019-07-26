@@ -13,6 +13,7 @@ import {
   ScrollView,
   View,
   Text,
+  Image,
   StatusBar
 } from "react-native";
 
@@ -28,6 +29,22 @@ import TipsListing from "./src/components/Tips/TipsListing";
 const App = () => {
   return (
     <Fragment>
+      <View
+        style={{
+          marginLeft: 5
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 30,
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            paddingBottom: 5
+          }}
+        >
+          Beauty Tips
+        </Text>
+      </View>
       <TipsListing />
     </Fragment>
   );

@@ -1,10 +1,44 @@
-import React from 'react';
-import { View, Button } from "react-native";
-const Pagination = (props) => {
-    return (<View style={{ flexDirection: "row" }}>
-        <Button onPress={props.onPressPrevious} disabled={props.currentPage === 1 ? true : false} title="Previous" color="red" />
-        <Button onPress={props.onPressNext} disabled={props.currentPage === props.lastPage ? true : false} title="Next" color="green" />
-    </View>);
-}
+import React from "react";
+import { View, Button, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+const Pagination = props => {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        margin: 10
+      }}
+    >
+      <TouchableOpacity
+        onPress={props.onPressPrevious}
+        disabled={props.currentPage === 1 ? true : false}
+      >
+        <Icon
+          size={40}
+          name="ios-arrow-dropleft"
+          color={props.currentPage === 1 ? "#C0C0C0" : "#000000"}
+        />
+      </TouchableOpacity>
+
+      {/* <Button
+        onPress={props.onPressNext}
+        disabled={props.currentPage === props.lastPage ? true : false}
+        title="Next"
+        color="green"
+      /> */}
+      <TouchableOpacity
+        onPress={props.onPressNext}
+        disabled={props.currentPage === props.lastPage ? true : false}
+      >
+        <Icon
+          size={40}
+          name="ios-arrow-dropright"
+          color={props.currentPage === props.lastPage ? "#C0C0C0" : "#000000"}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 export default Pagination;
