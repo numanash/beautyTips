@@ -16,6 +16,7 @@ import {
   Image,
   StatusBar
 } from "react-native";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import {
   Header,
@@ -26,29 +27,32 @@ import {
 } from "react-native/Libraries/NewAppScreen";
 import TipsListing from "./src/components/Tips/TipsListing";
 
-const App = () => {
-  return (
-    <Fragment>
-      <View
-        style={{
-          marginLeft: 5
-        }}
-      >
-        <Text
+class HomeScreen extends React.Component {
+  state = {};
+  render() {
+    return (
+      <Fragment>
+        <View
           style={{
-            fontSize: 30,
-            borderBottomColor: "black",
-            borderBottomWidth: 1,
-            paddingBottom: 5
+            marginLeft: 5
           }}
         >
-          Beauty Tips
-        </Text>
-      </View>
-      <TipsListing />
-    </Fragment>
-  );
-};
+          <Text
+            style={{
+              fontSize: 30,
+              borderBottomColor: "black",
+              borderBottomWidth: 1,
+              paddingBottom: 5
+            }}
+          >
+            Beauty Tips
+          </Text>
+        </View>
+        <TipsListing />
+      </Fragment>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -88,5 +92,15 @@ const styles = StyleSheet.create({
     textAlign: "right"
   }
 });
+
+const MainNavigator = createStackNavigator(
+  {
+    Home: { screen: HomeScreen }
+  },
+  {
+    initialRouteName: "Home"
+  }
+);
+const App = createAppContainer(MainNavigator);
 
 export default App;
