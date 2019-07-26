@@ -16,7 +16,7 @@ import {
   Image,
   StatusBar
 } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 import {
   Header,
@@ -26,6 +26,7 @@ import {
   ReloadInstructions
 } from "react-native/Libraries/NewAppScreen";
 import TipsListing from "./src/components/Tips/TipsListing";
+import TipsDetail from "./src/components/Tips/TipsDetail";
 
 class HomeScreen extends React.Component {
   state = {};
@@ -95,7 +96,10 @@ const styles = StyleSheet.create({
 
 const MainNavigator = createStackNavigator(
   {
-    Home: { screen: HomeScreen }
+    Home: { screen: HomeScreen },
+    Detail: {
+      screen: TipsDetail
+    }
   },
   {
     initialRouteName: "Home"

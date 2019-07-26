@@ -11,6 +11,10 @@ import {
   FlatList
 } from "react-native";
 import Pagination from "../Utils/Pagination";
+
+import { withNavigation } from "react-navigation";
+
+
 class TipsListing extends Component {
   constructor(props) {
     super(props);
@@ -51,6 +55,7 @@ class TipsListing extends Component {
         .then(res => res.json())
         .then(result => {
           console.log({ result });
+          console.log({ props: this.props });
           this.setState({
             tips: result.posts,
             lastPage: result.lastPage,
@@ -75,60 +80,65 @@ class TipsListing extends Component {
               data={this.state.tips}
               keyExtractor={this._keyExtractor}
               renderItem={({ item }) => {
-                const { id, post_featured_images, post_title } = item;
+                const { id, post_featured_images, post_title, post_slug } = item;
                 return (
-                  // <TouchableOpacity onPress={}>
-                  <View
-                    style={{
-                      width: "100%",
-                      marginVertical: 5,
-                      flexDirection: "row",
-                      alignContent: "center",
-                      padding: 10
-                    }}
-                  >
-                    <View>
-                      <Image
-                        source={{
-                          uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
-                        }}
-                        style={{ width: 100, height: 100 }}
-                      />
-                    </View>
-                    <View style={{ width: "70%", marginHorizontal: 10 }}>
-                      <Text
-                        style={{
-                          fontSize: 20,
-                          fontWeight: "bold"
-                        }}
-                      >
-                        {post_title}
+                  <TouchableOpacity onPress={() => {
+                    this.props.navigation.push('Detail', {
+                      post_slug,
+                      id
+                    })
+                  }}>
+                    < View
+                      style={{
+                        width: "100%",
+                        marginVertical: 5,
+                        flexDirection: "row",
+                        alignContent: "center",
+                        padding: 10
+                      }}
+                    >
+                      <View>
+                        <Image
+                          source={{
+                            uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
+                          }}
+                          style={{ width: 100, height: 100 }}
+                        />
+                      </View>
+                      <View style={{ width: "70%", marginHorizontal: 10 }}>
+                        <Text
+                          style={{
+                            fontSize: 20,
+                            fontWeight: "bold"
+                          }}
+                        >
+                          {post_title}
+                        </Text>
+                        <Text style={{ textTransform: "capitalize" }}>
+                          {post_title}&nbsp; for you. Click To read in detail
                       </Text>
-                      <Text style={{ textTransform: "capitalize" }}>
-                        {post_title}&nbsp; for you. Click To read in detail
-                      </Text>
+                      </View>
                     </View>
-                  </View>
-                  // </TouchableOpacity>
+                  </TouchableOpacity>
                 );
               }}
             />
           </View>
         ) : (
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              height: 300
-            }}
-          >
-            <ActivityIndicator
-              color="green"
-              size={80}
-              animating={this.state.tips ? false : true}
-            />
-          </View>
-        )}
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                height: 300
+              }}
+            >
+              <ActivityIndicator
+                color="green"
+                size={80}
+                animating={this.state.tips ? false : true}
+              />
+            </View>
+          )}
 
         <Pagination
           onPressNext={() => {
@@ -166,4 +176,4 @@ const styles = StyleSheet.create({
     padding: 10
   }
 });
-export default TipsListing;
+export default withNavigation(TipsListing);
