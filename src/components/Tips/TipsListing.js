@@ -14,7 +14,6 @@ import Pagination from "../Utils/Pagination";
 
 import { withNavigation } from "react-navigation";
 
-
 class TipsListing extends Component {
   constructor(props) {
     super(props);
@@ -73,6 +72,18 @@ class TipsListing extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text
+          style={{
+            marginHorizontal: 10,
+            paddingVertical: 5,
+            fontSize: 20,
+            borderBottomColor: "#2c3a4c",
+            borderBottomWidth: 5,
+            textTransform: "capitalize"
+          }}
+        >
+          home remedies &amp; beauty tips
+        </Text>
         {this.state.tips ? (
           <View style={{ height: 300 }}>
             <FlatList
@@ -80,21 +91,30 @@ class TipsListing extends Component {
               data={this.state.tips}
               keyExtractor={this._keyExtractor}
               renderItem={({ item }) => {
-                const { id, post_featured_images, post_title, post_slug } = item;
+                const {
+                  id,
+                  post_featured_images,
+                  post_title,
+                  post_slug
+                } = item;
                 return (
-                  <TouchableOpacity onPress={() => {
-                    this.props.navigation.push('Detail', {
-                      post_slug,
-                      id
-                    })
-                  }}>
-                    < View
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.navigation.push("Detail", {
+                        post_slug,
+                        id
+                      });
+                    }}
+                  >
+                    <View
                       style={{
                         width: "100%",
                         marginVertical: 5,
                         flexDirection: "row",
                         alignContent: "center",
-                        padding: 10
+                        padding: 10,
+                        paddingTop: 0,
+                        marginTop: 0
                       }}
                     >
                       <View>
@@ -116,7 +136,7 @@ class TipsListing extends Component {
                         </Text>
                         <Text style={{ textTransform: "capitalize" }}>
                           {post_title}&nbsp; for you. Click To read in detail
-                      </Text>
+                        </Text>
                       </View>
                     </View>
                   </TouchableOpacity>
@@ -125,20 +145,20 @@ class TipsListing extends Component {
             />
           </View>
         ) : (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                height: 300
-              }}
-            >
-              <ActivityIndicator
-                color="green"
-                size={80}
-                animating={this.state.tips ? false : true}
-              />
-            </View>
-          )}
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              height: 300
+            }}
+          >
+            <ActivityIndicator
+              color="green"
+              size={80}
+              animating={this.state.tips ? false : true}
+            />
+          </View>
+        )}
 
         <Pagination
           onPressNext={() => {
@@ -159,6 +179,8 @@ class TipsListing extends Component {
           }}
           currentPage={this.state.currentPage}
           lastPage={this.state.lastPage}
+          totalTips={this.state.totalTips}
+          perPage={this.state.perPage}
         />
       </View>
     );

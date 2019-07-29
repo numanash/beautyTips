@@ -16,7 +16,11 @@ import {
   Image,
   StatusBar
 } from "react-native";
-import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
+import {
+  createStackNavigator,
+  createBottomTabNavigator,
+  createAppContainer
+} from "react-navigation";
 
 import {
   Header,
@@ -27,29 +31,20 @@ import {
 } from "react-native/Libraries/NewAppScreen";
 import TipsListing from "./src/components/Tips/TipsListing";
 import TipsDetail from "./src/components/Tips/TipsDetail";
+import AppHeader from "./src/components/includes/AppHeader";
+import AppFooter from "./src/components/includes/AppFooter";
 
 class HomeScreen extends React.Component {
   state = {};
   render() {
     return (
       <Fragment>
-        <View
-          style={{
-            marginLeft: 5
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 30,
-              borderBottomColor: "black",
-              borderBottomWidth: 1,
-              paddingBottom: 5
-            }}
-          >
-            Beauty Tips
-          </Text>
+        <View style={{ flex: 1 }}>
+          <ScrollView>
+            <TipsListing />
+          </ScrollView>
+          <AppFooter />
         </View>
-        <TipsListing />
       </Fragment>
     );
   }
@@ -96,13 +91,32 @@ const styles = StyleSheet.create({
 
 const MainNavigator = createStackNavigator(
   {
-    Home: { screen: HomeScreen },
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: ({ navigation }) => ({
+        // title: "Beauty Tips",
+        // headerStyle: {
+        //   fontSize: 30,
+        //   borderBottomColor: "black",
+        //   borderBottomWidth: 1,
+        //   paddingBottom: 5
+        // },
+        // headerTitle: <Text>Home</Text>,
+        // headerLeft: null,
+        // headerRight: null
+        header: props => <AppHeader props={props} />
+      })
+    },
     Detail: {
-      screen: TipsDetail
+      screen: TipsDetail,
+      navigationOptions: {
+        header: null
+      }
     }
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "Home",
+    headerMode: "screen"
   }
 );
 const App = createAppContainer(MainNavigator);

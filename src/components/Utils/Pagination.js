@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, TouchableOpacity } from "react-native";
+import { View, Button, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 const Pagination = props => {
   return (
@@ -27,6 +27,9 @@ const Pagination = props => {
         title="Next"
         color="green"
       /> */}
+      <Text style={{ paddingVertical: 10 }}>
+        {props.currentPage} of {props.lastPage} Page
+      </Text>
       <TouchableOpacity
         onPress={props.onPressNext}
         disabled={props.currentPage === props.lastPage ? true : false}
