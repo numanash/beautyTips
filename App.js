@@ -29,23 +29,23 @@ import {
   DebugInstructions,
   ReloadInstructions
 } from "react-native/Libraries/NewAppScreen";
-import TipsListing from "./src/components/Tips/TipsListing";
 import TipsDetail from "./src/components/Tips/TipsDetail";
 import AppHeader from "./src/components/includes/AppHeader";
+import Main from "./src/Main";
 import AppFooter from "./src/components/includes/AppFooter";
 
 class HomeScreen extends React.Component {
   state = {};
   render() {
     return (
-      <Fragment>
-        <View style={{ flex: 1 }}>
-          <ScrollView>
-            <TipsListing />
-          </ScrollView>
-          <AppFooter />
+      <View style={{ flex: 1 }}>
+        {/* <ScrollView> */}
+        <View>
+          <Main />
         </View>
-      </Fragment>
+        {/* </ScrollView> */}
+        <AppFooter />
+      </View>
     );
   }
 }
@@ -94,16 +94,6 @@ const MainNavigator = createStackNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: ({ navigation }) => ({
-        // title: "Beauty Tips",
-        // headerStyle: {
-        //   fontSize: 30,
-        //   borderBottomColor: "black",
-        //   borderBottomWidth: 1,
-        //   paddingBottom: 5
-        // },
-        // headerTitle: <Text>Home</Text>,
-        // headerLeft: null,
-        // headerRight: null
         header: props => <AppHeader props={props} />
       })
     },
