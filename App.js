@@ -18,8 +18,8 @@ import {
 } from "react-native";
 import {
   createStackNavigator,
-  createBottomTabNavigator,
-  createAppContainer
+  createAppContainer,
+  createDrawerNavigator
 } from "react-navigation";
 
 import {
@@ -32,7 +32,9 @@ import {
 import TipsDetail from "./src/components/Tips/TipsDetail";
 import AppHeader from "./src/components/includes/AppHeader";
 import Main from "./src/Main";
+import SideBar from "./src/components/includes/Sidebar";
 import AppFooter from "./src/components/includes/AppFooter";
+import { Root } from "native-base";
 
 class HomeScreen extends React.Component {
   state = {};
@@ -89,26 +91,56 @@ const styles = StyleSheet.create({
   }
 });
 
-const MainNavigator = createStackNavigator(
+const Drawer = createDrawerNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: ({ navigation }) => ({
-        header: props => <AppHeader props={props} />
-      })
-    },
-    Detail: {
-      screen: TipsDetail,
-      navigationOptions: {
-        header: null
-      }
-    }
+    Home: { screen: HomeScreen },
+    Detail: { screen: TipsDetail }
   },
   {
     initialRouteName: "Home",
-    headerMode: "screen"
+    contentOptions: {
+      activeTintColor: "#e91e63"
+    },
+    contentComponent: props => <SideBar {...props} />
+  }
+);
+
+// const MainNavigator = createStackNavigator(
+//   {
+//     Home: {
+//       screen: HomeScreen,
+//       navigationOptions: ({ navigation }) => ({
+//         header: props => <AppHeader props={props} />
+//       })
+//     },
+//     Detail: {
+//       screen: TipsDetail,
+//       navigationOptions: {
+//         header: null
+//       }
+//     }
+//   },
+//   {
+//     initialRouteName: "Home",
+//     headerMode: "screen"
+//   }
+// );
+
+const MainNavigator = createStackNavigator(
+  {
+    Drawer: { screen: Drawer },
+    Home: { screen: HomeScreen },
+    Detail: { screen: TipsDetail }
+  },
+  {
+    initialRouteName: "Drawer",
+    headerMode: "none"
   }
 );
 const App = createAppContainer(MainNavigator);
 
-export default App;
+export default () => (
+  <Root>
+    <App />
+  </Root>
+);

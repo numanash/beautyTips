@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, ScrollView } from "react-native";
-import { withNavigation } from "react-navigation";
+import { withNavigation, DrawerActions } from "react-navigation";
 import { WebView } from "react-native-webview";
 import {
   Container,
@@ -26,6 +26,8 @@ class TipsDetail extends Component {
   }
   componentDidMount() {
     const { navigation } = this.props;
+    this.props.navigation.dispatch(DrawerActions.closeDrawer());
+
     fetch(
       `https://www.winsomeglow.com/api/posts/${navigation.getParam(
         "id"
@@ -50,11 +52,20 @@ class TipsDetail extends Component {
           .replace(/..\/..\/..\//g, "http://www.winsomeglow.com/")
           .replace(/<span/g, "<span style='font-size:50pt' ")
       });
+    console.log({ props: this.props });
     return (
       <Container>
         <Header>
           <Left>
-            <Button transparent>
+            <Button
+              transparent
+              onPress={() => {
+                this.props.navigation.dispatch(DrawerActions.openDrawer());
+                setTimeout(() => {
+                  this.props.navigation.openDrawer();
+                }, 2000);
+              }}
+            >
               <Icon name="menu" />
             </Button>
           </Left>
