@@ -2,7 +2,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
 import {
-  Text,
   View,
   ActivityIndicator,
   StyleSheet,
@@ -10,9 +9,21 @@ import {
   TouchableOpacity,
   FlatList
 } from "react-native";
+import {
+  Container,
+  Header,
+  Left,
+  Button,
+  Icon,
+  Content,
+  Body,
+  FooterTab,
+  Footer,
+  Title,
+  Text
+} from "native-base";
 import Pagination from "../Utils/Pagination";
-
-import { withNavigation } from "react-navigation";
+import { withNavigation, DrawerActions } from "react-navigation";
 
 class TipsListing extends Component {
   constructor(props) {
@@ -71,117 +82,129 @@ class TipsListing extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text
-          style={{
-            marginHorizontal: 10,
-            paddingVertical: 5,
-            fontSize: 20,
-            borderBottomColor: "#2c3a4c",
-            borderBottomWidth: 5,
-            textTransform: "capitalize"
-          }}
-        >
-          home remedies &amp; beauty tips
-        </Text>
-        {this.state.tips ? (
-          <View style={{ height: 300 }}>
-            <FlatList
-              style={{ width: "100%" }}
-              data={this.state.tips}
-              keyExtractor={this._keyExtractor}
-              renderItem={({ item }) => {
-                const {
-                  id,
-                  post_featured_images,
-                  post_title,
-                  post_slug
-                } = item;
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.props.navigation.push("Detail", {
-                        post_slug,
-                        id
-                      });
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: "100%",
-                        marginVertical: 5,
-                        flexDirection: "row",
-                        alignContent: "center",
-                        padding: 10,
-                        paddingTop: 0,
-                        marginTop: 0
+      <View>
+        <Header>
+          <Left>
+            <Button
+              transparent
+              onPress={() => {
+                this.props.navigation.dispatch(DrawerActions.openDrawer());
+              }}
+            >
+              <Icon name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Beauty Tips</Title>
+          </Body>
+        </Header>
+        <View style={styles.container}>
+          {this.state.tips ? (
+            <View style={{ height: 300, marginTop: 10 }}>
+              <FlatList
+                style={{ width: "100%" }}
+                data={this.state.tips}
+                keyExtractor={this._keyExtractor}
+                renderItem={({ item }) => {
+                  const {
+                    id,
+                    post_featured_images,
+                    post_title,
+                    post_slug
+                  } = item;
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        this.props.navigation.push("Detail", {
+                          post_slug,
+                          id
+                        });
                       }}
                     >
-                      <View>
-                        <Image
-                          source={{
-                            uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
-                          }}
-                          style={{ width: 100, height: 100 }}
-                        />
+                      <View
+                        style={{
+                          width: "100%",
+                          marginVertical: 5,
+                          flexDirection: "row",
+                          alignContent: "center",
+                          padding: 10,
+                          paddingTop: 0,
+                          marginTop: 0
+                        }}
+                      >
+                        <View>
+                          <Image
+                            source={{
+                              uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
+                            }}
+                            style={{ width: 100, height: 100 }}
+                          />
+                        </View>
+                        <View style={{ width: "70%", marginHorizontal: 10 }}>
+                          <Text
+                            style={{
+                              fontSize: 20,
+                              fontWeight: "bold"
+                            }}
+                          >
+                            {post_title}
+                          </Text>
+                          <Text style={{ textTransform: "capitalize" }}>
+                            {post_title}&nbsp; for you. Click To read in detail
+                          </Text>
+                        </View>
                       </View>
-                      <View style={{ width: "70%", marginHorizontal: 10 }}>
-                        <Text
-                          style={{
-                            fontSize: 20,
-                            fontWeight: "bold"
-                          }}
-                        >
-                          {post_title}
-                        </Text>
-                        <Text style={{ textTransform: "capitalize" }}>
-                          {post_title}&nbsp; for you. Click To read in detail
-                        </Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                );
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+            </View>
+          ) : (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                height: 300
               }}
-            />
-          </View>
-        ) : (
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              height: 300
-            }}
-          >
-            <ActivityIndicator
-              color="green"
-              size={80}
-              animating={this.state.tips ? false : true}
-            />
-          </View>
-        )}
+            >
+              <ActivityIndicator
+                color="green"
+                size={80}
+                animating={this.state.tips ? false : true}
+              />
+            </View>
+          )}
 
-        <Pagination
-          onPressNext={() => {
-            this.setState(prevState => {
-              return {
-                currentPage: prevState.currentPage + 1,
-                tips: undefined
-              };
-            });
-          }}
-          onPressPrevious={() => {
-            this.setState(prevState => {
-              return {
-                currentPage: prevState.currentPage - 1,
-                tips: undefined
-              };
-            });
-          }}
-          currentPage={this.state.currentPage}
-          lastPage={this.state.lastPage}
-          totalTips={this.state.totalTips}
-          perPage={this.state.perPage}
-        />
+          <Pagination
+            onPressNext={() => {
+              this.setState(prevState => {
+                return {
+                  currentPage: prevState.currentPage + 1,
+                  tips: undefined
+                };
+              });
+            }}
+            onPressPrevious={() => {
+              this.setState(prevState => {
+                return {
+                  currentPage: prevState.currentPage - 1,
+                  tips: undefined
+                };
+              });
+            }}
+            currentPage={this.state.currentPage}
+            lastPage={this.state.lastPage}
+            totalTips={this.state.totalTips}
+            perPage={this.state.perPage}
+          />
+          <Footer>
+            <FooterTab>
+              <Button full>
+                <Text>Footer</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+        </View>
       </View>
     );
   }
@@ -189,7 +212,7 @@ class TipsListing extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 550,
+    height: "100%",
     width: "100%"
   },
   horizontal: {

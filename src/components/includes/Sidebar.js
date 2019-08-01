@@ -15,8 +15,8 @@ import styles from "./style";
 
 const datas = [
   {
-    name: "Anatomy",
-    route: "Anatomy",
+    name: "All Tips",
+    route: "Listing",
     icon: "phone-portrait",
     bg: "#C5F442"
   },

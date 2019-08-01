@@ -26,8 +26,6 @@ class TipsDetail extends Component {
   }
   componentDidMount() {
     const { navigation } = this.props;
-    this.props.navigation.dispatch(DrawerActions.closeDrawer());
-
     fetch(
       `https://www.winsomeglow.com/api/posts/${navigation.getParam(
         "id"
@@ -44,6 +42,11 @@ class TipsDetail extends Component {
         console.log(e);
       });
   }
+
+  componentWillReceiveProps(props) {
+    console.log({ new: props });
+  }
+
   render() {
     const { tip } = this.state;
     tip &&
@@ -55,18 +58,15 @@ class TipsDetail extends Component {
     console.log({ props: this.props });
     return (
       <Container>
-        <Header>
+        <Header hasSubtitle>
           <Left>
             <Button
               transparent
               onPress={() => {
-                this.props.navigation.dispatch(DrawerActions.openDrawer());
-                setTimeout(() => {
-                  this.props.navigation.openDrawer();
-                }, 2000);
+                this.props.navigation.goBack();
               }}
             >
-              <Icon name="menu" />
+              <Icon name="arrow-back" />
             </Button>
           </Left>
           <Body>

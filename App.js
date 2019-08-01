@@ -14,12 +14,14 @@ import {
   View,
   Text,
   Image,
-  StatusBar
+  StatusBar,
+  TouchableOpacity
 } from "react-native";
 import {
   createStackNavigator,
   createAppContainer,
-  createDrawerNavigator
+  createDrawerNavigator,
+  DrawerActions
 } from "react-navigation";
 
 import {
@@ -35,18 +37,19 @@ import Main from "./src/Main";
 import SideBar from "./src/components/includes/Sidebar";
 import AppFooter from "./src/components/includes/AppFooter";
 import { Root } from "native-base";
+import TipsListing from "./src/components/Tips/TipsListing";
 
 class HomeScreen extends React.Component {
   state = {};
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View>
         {/* <ScrollView> */}
-        <View>
-          <Main />
-        </View>
+        {/* <View> */}
+        <Main />
+        {/* </View> */}
         {/* </ScrollView> */}
-        <AppFooter />
+        {/* <AppFooter /> */}
       </View>
     );
   }
@@ -93,8 +96,15 @@ const styles = StyleSheet.create({
 
 const Drawer = createDrawerNavigator(
   {
-    Home: { screen: HomeScreen },
-    Detail: { screen: TipsDetail }
+    Home: {
+      screen: HomeScreen
+    },
+    Detail: {
+      screen: TipsDetail
+    },
+    Listing: {
+      screen: TipsListing
+    }
   },
   {
     initialRouteName: "Home",
@@ -130,7 +140,8 @@ const MainNavigator = createStackNavigator(
   {
     Drawer: { screen: Drawer },
     Home: { screen: HomeScreen },
-    Detail: { screen: TipsDetail }
+    Detail: { screen: TipsDetail },
+    Listing: { screen: TipsListing }
   },
   {
     initialRouteName: "Drawer",
