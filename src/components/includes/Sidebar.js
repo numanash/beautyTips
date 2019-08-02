@@ -15,9 +15,15 @@ import styles from "./style";
 
 const datas = [
   {
+    name: "Home",
+    route: "Home",
+    icon: "ios-home",
+    bg: "#C5F4F2"
+  },
+  {
     name: "All Tips",
     route: "Listing",
-    icon: "phone-portrait",
+    icon: "ios-list-box",
     bg: "#C5F442"
   },
   {
@@ -235,7 +241,7 @@ class SideBar extends Component {
                     >
                       <Text style={styles.badgeText}>{`${
                         data.types
-                      } Types`}</Text>
+                        } Types`}</Text>
                     </Badge>
                   </Right>
                 )}

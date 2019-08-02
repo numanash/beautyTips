@@ -16,6 +16,7 @@ import {
   Icon,
   Text
 } from "native-base";
+import Layout from "../includes/Layout";
 
 class TipsDetail extends Component {
   constructor(props) {
@@ -49,31 +50,28 @@ class TipsDetail extends Component {
 
   render() {
     const { tip } = this.state;
-    tip &&
-      console.log({
-        tip: tip.post_content
-          .replace(/..\/..\/..\//g, "http://www.winsomeglow.com/")
-          .replace(/<span/g, "<span style='font-size:50pt' ")
-      });
-    console.log({ props: this.props });
+
     return (
-      <Container>
-        <Header hasSubtitle>
-          <Left>
-            <Button
-              transparent
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}
-            >
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Beauty Tip Detail</Title>
-          </Body>
-          <Right />
-        </Header>
+      // <Container>
+      //   <Header hasSubtitle>
+      //     <Left>
+      //       <Button
+      //         transparent
+      //         onPress={() => {
+      //           this.props.navigation.goBack();
+      //         }}
+      //       >
+      //         <Icon name="arrow-back" />
+      //       </Button>
+      //     </Left>
+      //     <Body>
+      //       <Title>Beauty Tip Detail</Title>
+      //     </Body>
+      //     <Right />
+      //   </Header>
+      <Layout onPress={() => {
+        this.props.navigation.goBack();
+      }}>
         {tip && (
           <ScrollView contentContainerStyle={{ width: "100%", height: "100%" }}>
             <WebView
@@ -101,14 +99,15 @@ class TipsDetail extends Component {
             />
           </ScrollView>
         )}
-        <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+      </Layout>
+      /* <Footer>
+        <FooterTab>
+          <Button full>
+            <Text>Footer</Text>
+          </Button>
+        </FooterTab>
+      </Footer>
+    </Container> */
     );
   }
 }

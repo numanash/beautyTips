@@ -2,19 +2,12 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
 import {
-  View,
-  ActivityIndicator,
   StyleSheet,
   Image,
-  TouchableOpacity,
-  FlatList
 } from "react-native";
-import Pagination from "../Utils/Pagination";
 import {
   Container,
-  Card,
   Grid,
-  CardItem,
   Content,
   Text,
   Row,
@@ -30,6 +23,7 @@ import {
 } from "native-base";
 
 import { withNavigation, DrawerActions } from "react-navigation";
+import Layout from "../includes/Layout";
 
 class LatestTips extends Component {
   constructor(props) {
@@ -125,22 +119,25 @@ class LatestTips extends Component {
       // </Grid>
       // <Container>
       //   <Header />
-      <Container>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => {
-                this.props.navigation.dispatch(DrawerActions.openDrawer());
-              }}
-            >
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Beauty Tips</Title>
-          </Body>
-        </Header>
+      // <Container>
+      //   <Header>
+      //     <Left>
+      //       <Button
+      //         transparent
+      //         onPress={() => {
+      //           this.props.navigation.dispatch(DrawerActions.openDrawer());
+      //         }}
+      //       >
+      //         <Icon name="menu" />
+      //       </Button>
+      //     </Left>
+      //     <Body>
+      //       <Title>Beauty Tips</Title>
+      //     </Body>
+      //   </Header>
+      <Layout onPress={() => {
+        this.props.navigation.dispatch(DrawerActions.openDrawer());
+      }}>
         <Content>
           <Grid>
             <Text
@@ -216,14 +213,15 @@ class LatestTips extends Component {
             <Row style={{ backgroundColor: "#00CE9F", height: 200 }} />
           </Grid>
         </Content>
-        <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+      </Layout>
+      /* <Footer>
+        <FooterTab>
+          <Button full>
+            <Text>Footer</Text>
+          </Button>
+        </FooterTab>
+      </Footer>
+    </Container> */
       // {/* </Container> */}
     );
   }
