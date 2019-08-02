@@ -38,20 +38,12 @@ import SideBar from "./src/components/includes/Sidebar";
 import AppFooter from "./src/components/includes/AppFooter";
 import { Root } from "native-base";
 import TipsListing from "./src/components/Tips/TipsListing";
+import LatestTips from "./src/components/Tips/LatestTips";
 
 class HomeScreen extends React.Component {
   state = {};
   render() {
-    return (
-      <View>
-        {/* <ScrollView> */}
-        {/* <View> */}
-        <Main />
-        {/* </View> */}
-        {/* </ScrollView> */}
-        {/* <AppFooter /> */}
-      </View>
-    );
+    return <LatestTips />;
   }
 }
 

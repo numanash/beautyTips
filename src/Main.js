@@ -20,32 +20,34 @@ class Main extends Component {
   state = {};
   render() {
     return (
-      <View>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => {
-                this.props.navigation.dispatch(DrawerActions.openDrawer());
-              }}
-            >
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Beauty Tips</Title>
-          </Body>
-        </Header>
-
-        <LatestTips />
-        {/* <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer> */}
-      </View>
+      <Container />
+      // <Container>
+      //   <Header>
+      //     <Left>
+      //       <Button
+      //         transparent
+      //         onPress={() => {
+      //           this.props.navigation.dispatch(DrawerActions.openDrawer());
+      //         }}
+      //       >
+      //         <Icon name="menu" />
+      //       </Button>
+      //     </Left>
+      //     <Body>
+      //       <Title>Beauty Tips</Title>
+      //     </Body>
+      //   </Header>
+      //   <Content>
+      //     <LatestTips />
+      //   </Content>
+      //   {/* <Footer>
+      //     <FooterTab>
+      //       <Button full>
+      //         <Text>Footer</Text>
+      //       </Button>
+      //     </FooterTab>
+      //   </Footer> */}
+      // </Container>
     );
   }
 }
