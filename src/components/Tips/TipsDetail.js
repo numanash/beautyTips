@@ -69,9 +69,11 @@ class TipsDetail extends Component {
       //     </Body>
       //     <Right />
       //   </Header>
-      <Layout onPress={() => {
-        this.props.navigation.goBack();
-      }}>
+      <Layout
+        goBack={() => {
+          this.props.navigation.goBack();
+        }}
+      >
         {tip && (
           <ScrollView contentContainerStyle={{ width: "100%", height: "100%" }}>
             <WebView

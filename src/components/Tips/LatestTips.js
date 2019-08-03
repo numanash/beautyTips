@@ -1,10 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Image,
-} from "react-native";
+import { StyleSheet, Image } from "react-native";
 import {
   Container,
   Grid,
@@ -19,6 +16,7 @@ import {
   Footer,
   FooterTab,
   Icon,
+  Spinner,
   Button
 } from "native-base";
 
@@ -49,95 +47,11 @@ class LatestTips extends Component {
 
   render() {
     return (
-      // <Grid>
-      //   {this.state.tips ? (
-      //     //   <Col style={{ marginTop: 10 }}>
-      //     this.state.tips.map(tip => {
-      //       const { id, post_featured_images, post_title, post_slug } = tip;
-      //       return (
-      //         <Button
-      //           onPress={() => {
-      //             this.props.navigation.push("Detail", {
-      //               post_slug,
-      //               id
-      //             });
-      //           }}
-      //           key={id}
-      //         >
-      //           <Row
-      //             style={{
-      //               width: "100%",
-      //               marginVertical: 5,
-      //               flexDirection: "row",
-      //               alignContent: "center",
-      //               padding: 10,
-      //               paddingTop: 0,
-      //               marginTop: 0
-      //             }}
-      //           >
-      //             <Row>
-      //               <Image
-      //                 source={{
-      //                   uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
-      //                 }}
-      //                 style={{ width: 100, height: 100 }}
-      //               />
-      //             </Row>
-      //             <Row style={{ width: "70%", marginHorizontal: 10 }}>
-      //               <Text
-      //                 style={{
-      //                   fontSize: 20,
-      //                   fontWeight: "bold"
-      //                 }}
-      //               >
-      //                 {post_title}
-      //               </Text>
-      //               <Text style={{ textTransform: "capitalize" }}>
-      //                 {post_title}&nbsp; for you. Click To read in detail
-      //               </Text>
-      //             </Row>
-      //           </Row>
-      //         </Button>
-      //       );
-      //     })
-      //   ) : (
-      //     //   </Col>
-      //     <Grid
-      //       style={{
-      //         alignItems: "center",
-      //         justifyContent: "center",
-      //         height: 300
-      //       }}
-      //     >
-      //       <ActivityIndicator
-      //         color="green"
-      //         size={80}
-      //         animating={this.state.tips ? false : true}
-      //       />
-      //     </Grid>
-      //   )}
-      // </Grid>
-      // <Container>
-      //   <Header />
-      // <Container>
-      //   <Header>
-      //     <Left>
-      //       <Button
-      //         transparent
-      //         onPress={() => {
-      //           this.props.navigation.dispatch(DrawerActions.openDrawer());
-      //         }}
-      //       >
-      //         <Icon name="menu" />
-      //       </Button>
-      //     </Left>
-      //     <Body>
-      //       <Title>Beauty Tips</Title>
-      //     </Body>
-      //   </Header>
-      <Layout onPress={() => {
-        this.props.navigation.dispatch(DrawerActions.openDrawer());
-      }}>
+      <Layout
+        onPress={() => {
+          this.props.navigation.dispatch(DrawerActions.openDrawer());
+        }}
+      >
         <Content>
           <Grid>
             <Text
@@ -148,81 +62,77 @@ class LatestTips extends Component {
             >
               Latest Beauty Tips
             </Text>
-            <Col
-              style={{
-                backgroundColor: "#635DB7",
-                height: 500,
-                paddingVertical: 10,
-                paddingHorizontal: 5
-              }}
-            >
-              {this.state.tips &&
-                this.state.tips.map(tip => {
-                  const {
-                    id,
-                    post_featured_images,
-                    post_title,
-                    post_slug
-                  } = tip;
-                  return (
-                    <Button
-                      transparent
-                      key={id}
-                      style={{ marginTop: 10, height: "auto" }}
-                      onPress={() => {
-                        this.props.navigation.push("Detail", {
-                          post_slug,
-                          id
-                        });
-                      }}
-                    >
-                      <Row>
-                        <Col style={{ width: 100, height: 100 }}>
-                          <Image
-                            source={{
-                              uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
-                            }}
-                            style={{ width: "100%", height: "100%" }}
-                          />
-                        </Col>
-                        <Col>
-                          <Text
-                            style={{
-                              fontSize: 16,
-                              fontWeight: "bold",
-                              color: "white"
-                            }}
-                          >
-                            {post_title}
-                          </Text>
-                          <Text
-                            style={{
-                              textTransform: "capitalize",
-                              fontSize: 12,
-                              color: "white"
-                            }}
-                          >
-                            {post_title}&nbsp; for you. Click To read in detail
-                          </Text>
-                        </Col>
-                      </Row>
-                    </Button>
-                  );
-                })}
-            </Col>
-            <Row style={{ backgroundColor: "#00CE9F", height: 200 }} />
+            <Row>
+              <Col
+                style={{
+                  backgroundColor: "#a239ca",
+                  height: 500,
+                  paddingVertical: 10,
+                  paddingHorizontal: 5
+                }}
+              >
+                {!this.state.tips ? (
+                  <Spinner />
+                ) : (
+                  this.state.tips.map(tip => {
+                    const {
+                      id,
+                      post_featured_images,
+                      post_title,
+                      post_slug
+                    } = tip;
+                    return (
+                      <Button
+                        transparent
+                        key={id}
+                        style={{ marginTop: 10, height: "auto" }}
+                        onPress={() => {
+                          this.props.navigation.push("Detail", {
+                            post_slug,
+                            id
+                          });
+                        }}
+                      >
+                        <Row>
+                          <Col style={{ width: 100, height: 100 }}>
+                            <Image
+                              source={{
+                                uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
+                              }}
+                              style={{ width: "100%", height: "100%" }}
+                            />
+                          </Col>
+                          <Col>
+                            <Text
+                              style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "white"
+                              }}
+                            >
+                              {post_title}
+                            </Text>
+                            <Text
+                              style={{
+                                textTransform: "capitalize",
+                                fontSize: 12,
+                                color: "white"
+                              }}
+                            >
+                              {post_title}&nbsp; for you. Click To read in
+                              detail
+                            </Text>
+                          </Col>
+                        </Row>
+                      </Button>
+                    );
+                  })
+                )}
+              </Col>
+            </Row>
           </Grid>
         </Content>
       </Layout>
-      /* <Footer>
-        <FooterTab>
-          <Button full>
-            <Text>Footer</Text>
-          </Button>
-        </FooterTab>
-      </Footer>
-    </Container> */
-      // {/* </Container> */}
     );
   }
 }

@@ -40,6 +40,13 @@ import { Root } from "native-base";
 import TipsListing from "./src/components/Tips/TipsListing";
 import LatestTips from "./src/components/Tips/LatestTips";
 
+// Color Scheme
+
+// #0e0b16 void,
+// #a239ca fuschia
+// #4717f6 jewel
+// #e7dfdd
+
 class HomeScreen extends React.Component {
   state = {};
   render() {
