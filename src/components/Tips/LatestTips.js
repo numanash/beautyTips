@@ -1,20 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
+
 import { StyleSheet, Image } from "react-native";
 import {
-  Container,
   Grid,
   Content,
   Text,
   Row,
   Col,
-  Body,
-  Header,
-  Left,
-  Title,
-  Footer,
-  FooterTab,
   Icon,
   Spinner,
   Button
@@ -22,7 +16,8 @@ import {
 
 import { withNavigation, DrawerActions } from "react-navigation";
 import Layout from "../includes/Layout";
-
+import Style from "../../styles/LatestTips";
+// const drawerCover = ;
 class LatestTips extends Component {
   constructor(props) {
     super(props);
@@ -35,13 +30,13 @@ class LatestTips extends Component {
     fetch("https://www.winsomeglow.com/api/admin/latest-posts")
       .then(res => res.json())
       .then(result => {
-        console.log({ result });
+        console.log({ latest: result });
         this.setState({
           tips: result
         });
       })
       .catch(e => {
-        console.log(e);
+        console.log({ err: e });
       });
   }
 
@@ -52,82 +47,80 @@ class LatestTips extends Component {
           this.props.navigation.dispatch(DrawerActions.openDrawer());
         }}
       >
-        <Content>
-          <Grid>
+        <Image source={{ uri: "http://marhaen.co/wp-content/uploads/2019/01/beautiful-nature-wallpaper-for-mobile-download-coloured-beauty-of-phone-background.jpg" }} style={Style.drawerCover} />
+        <Content style={Style.mainDrawer} >
+
+          <Grid >
             <Text
               style={{
                 padding: 10,
-                fontWeight: "bold"
+                color: "white",
+                fontWeight: "bold",
+                textTransform: "uppercase"
               }}
             >
               Latest Beauty Tips
             </Text>
             <Row>
-              <Col
-                style={{
-                  backgroundColor: "#a239ca",
-                  height: 500,
-                  paddingVertical: 10,
-                  paddingHorizontal: 5
-                }}
-              >
+              <Col>
                 {!this.state.tips ? (
                   <Spinner />
                 ) : (
-                  this.state.tips.map(tip => {
-                    const {
-                      id,
-                      post_featured_images,
-                      post_title,
-                      post_slug
-                    } = tip;
-                    return (
-                      <Button
-                        transparent
-                        key={id}
-                        style={{ marginTop: 10, height: "auto" }}
-                        onPress={() => {
-                          this.props.navigation.push("Detail", {
-                            post_slug,
-                            id
-                          });
-                        }}
-                      >
-                        <Row>
-                          <Col style={{ width: 100, height: 100 }}>
-                            <Image
-                              source={{
-                                uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
-                              }}
-                              style={{ width: "100%", height: "100%" }}
-                            />
-                          </Col>
-                          <Col>
-                            <Text
-                              style={{
-                                fontSize: 16,
-                                fontWeight: "bold",
-                                color: "white"
-                              }}
-                            >
-                              {post_title}
+                    this.state.tips.map(tip => {
+                      const {
+                        id,
+                        post_featured_images,
+                        post_title,
+                        post_slug
+                      } = tip;
+                      return (
+                        <Button
+                          transparent
+                          key={id}
+                          style={Style.listingTip}
+                          onPress={() => {
+                            this.props.navigation.push("Detail", {
+                              post_slug,
+                              id
+                            });
+                          }}
+                        >
+                          <Icon name="arrow-dropright-circle" style={Style.detailIconStyling} />
+                          <Row>
+                            <Col style={{ width: 100, height: 100 }}>
+                              <Image
+                                source={{
+                                  uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
+                                }}
+                                style={{ width: "100%", height: "100%" }}
+                              />
+                            </Col>
+                            <Col>
+                              <Text
+                                style={{
+                                  fontSize: 16,
+                                  fontWeight: "bold",
+                                  color: "white"
+                                }}
+                              >
+                                {post_title}
+                              </Text>
+                              <Text
+                                style={{
+                                  textTransform: "capitalize",
+                                  fontSize: 12,
+                                  color: "white"
+                                }}
+                              >
+                                {post_title}&nbsp; for you. Click To read in
+                                detail
                             </Text>
-                            <Text
-                              style={{
-                                textTransform: "capitalize",
-                                fontSize: 12,
-                                color: "white"
-                              }}
-                            >
-                              {post_title}&nbsp; for you. Click To read in
-                              detail
-                            </Text>
-                          </Col>
-                        </Row>
-                      </Button>
-                    );
-                  })
-                )}
+                            </Col>
+                          </Row>
+                        </Button>
+                      );
+                    })
+                  )}
               </Col>
             </Row>
           </Grid>
