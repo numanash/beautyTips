@@ -39,6 +39,7 @@ import AppFooter from "./src/components/includes/AppFooter";
 import { Root } from "native-base";
 import TipsListing from "./src/components/Tips/TipsListing";
 import LatestTips from "./src/components/Tips/LatestTips";
+import HomeScreen from "./src/components/HomeScreen";
 
 // Color Scheme
 
@@ -47,12 +48,12 @@ import LatestTips from "./src/components/Tips/LatestTips";
 // #4717f6 jewel
 // #e7dfdd
 
-class HomeScreen extends React.Component {
-  state = {};
-  render() {
-    return <LatestTips />;
-  }
-}
+// class HomeScreen extends React.Component {
+//   state = {};
+//   render() {
+//     return <LatestTips />;
+//   }
+// }
 
 const styles = StyleSheet.create({
   scrollView: {
