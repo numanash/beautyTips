@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withNavigation, DrawerActions } from "react-navigation";
 import { Dimensions, ImageBackground } from "react-native";
-import { Content, Text, Thumbnail, Row, Col } from "native-base";
+import { Content, Text, Thumbnail, Row, Col, Button } from "native-base";
 import Layout from "./includes/Layout";
 
 class HomeScreen extends Component {
@@ -14,7 +14,9 @@ class HomeScreen extends Component {
         }}
       >
         <Content>
-          <Text>Want Cool Checkout our beauty tips</Text>
+          <Text style={{ padding: 10, textAlign: "center" }}>
+            Do you want to look beautiful. Checkout our beauty tips.
+          </Text>
           <Row style={{ height: 150, position: "relative" }}>
             <Col
               style={{ width: Dimensions.get("window").width / 2, padding: 10 }}
@@ -23,11 +25,31 @@ class HomeScreen extends Component {
                 borderRadius={0}
                 source={{
                   uri:
-                    "https://www.canva.com/learn/wp-content/uploads/2016/11/yt-thumbnail-09.png"
+                    "https://png.pngtree.com/element_our/20190530/ourlarge/pngtree-queen-s-day-receives-flowers-cartoon-female-image_1260055.jpg"
                 }}
-                style={{ width: "100%", height: "100%", zIndex: -1 }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  zIndex: -1,
+                  flex: 1,
+                  justifyContent: "flex-end"
+                }}
               >
-                <Text>Category 1</Text>
+                <Button
+                  transparent
+                  onPress={() => this.props.navigation.push("LatestTips")}
+                  style={{ width: "100%" }}
+                >
+                  <Text
+                    style={{
+                      backgroundColor: "rgba(0,0,0,0.9)",
+                      textAlign: "center",
+                      color: "white"
+                    }}
+                  >
+                    Latest Beauty Tips
+                  </Text>
+                </Button>
               </ImageBackground>
             </Col>
             <Col
@@ -37,10 +59,33 @@ class HomeScreen extends Component {
                 borderRadius={0}
                 source={{
                   uri:
-                    "https://www.canva.com/learn/wp-content/uploads/2016/11/yt-thumbnail-09.png"
+                    "https://cdn.evoke.ie/wp-content/uploads/2019/04/27165721/beauty-icon-feat-696x503.jpg"
                 }}
-                style={{ width: "100%", height: "100%", zIndex: -1 }}
-              />
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  zIndex: -1,
+                  flex: 1,
+                  justifyContent: "flex-end"
+                }}
+              >
+                <Button
+                  transparent
+                  onPress={() => this.props.navigation.push("Listing")}
+                  style={{ width: "100%" }}
+                >
+                  <Text
+                    style={{
+                      backgroundColor: "rgba(0,0,0,0.9)",
+                      textAlign: "center",
+                      color: "white",
+                      width: "100%"
+                    }}
+                  >
+                    Random Beauty Tips
+                  </Text>
+                </Button>
+              </ImageBackground>
             </Col>
           </Row>
         </Content>
@@ -49,4 +94,4 @@ class HomeScreen extends Component {
   }
 }
 
-export default HomeScreen;
+export default withNavigation(HomeScreen);

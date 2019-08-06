@@ -7,7 +7,9 @@ const Pagination = props => {
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
-        margin: 10
+        margin: 10,
+        width: "100%",
+        paddingRight: 20
       }}
     >
       <TouchableOpacity
@@ -17,7 +19,7 @@ const Pagination = props => {
         <Icon
           size={40}
           name="ios-arrow-dropleft"
-          color={props.currentPage === 1 ? "#C0C0C0" : "#000000"}
+          color={props.currentPage === 1 ? "#C0C0C0" : "#FFFFFF"}
         />
       </TouchableOpacity>
 
@@ -27,7 +29,7 @@ const Pagination = props => {
         title="Next"
         color="green"
       /> */}
-      <Text style={{ paddingVertical: 10 }}>
+      <Text style={{ paddingVertical: 10, color: "#FFFFFF" }}>
         {props.currentPage} of {props.lastPage} Page
       </Text>
       <TouchableOpacity
@@ -37,7 +39,7 @@ const Pagination = props => {
         <Icon
           size={40}
           name="ios-arrow-dropright"
-          color={props.currentPage === props.lastPage ? "#C0C0C0" : "#000000"}
+          color={props.currentPage === props.lastPage ? "#C0C0C0" : "#FFFFFF"}
         />
       </TouchableOpacity>
     </View>

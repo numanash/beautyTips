@@ -52,27 +52,11 @@ class TipsDetail extends Component {
     const { tip } = this.state;
 
     return (
-      // <Container>
-      //   <Header hasSubtitle>
-      //     <Left>
-      //       <Button
-      //         transparent
-      //         onPress={() => {
-      //           this.props.navigation.goBack();
-      //         }}
-      //       >
-      //         <Icon name="arrow-back" />
-      //       </Button>
-      //     </Left>
-      //     <Body>
-      //       <Title>Beauty Tip Detail</Title>
-      //     </Body>
-      //     <Right />
-      //   </Header>
       <Layout
         goBack={() => {
           this.props.navigation.goBack();
         }}
+        title={tip && tip.post_title}
       >
         {tip && (
           <ScrollView contentContainerStyle={{ width: "100%", height: "100%" }}>

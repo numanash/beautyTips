@@ -28,7 +28,9 @@ class LatestTips extends Component {
 
   componentDidMount() {
     fetch("https://www.winsomeglow.com/api/admin/latest-posts")
-      .then(res => res.json())
+      .then(res => {
+        return res.json();
+      })
       .then(result => {
         console.log({ latest: result });
         this.setState({
@@ -43,14 +45,20 @@ class LatestTips extends Component {
   render() {
     return (
       <Layout
-        onPress={() => {
-          this.props.navigation.dispatch(DrawerActions.openDrawer());
+        goBack={() => {
+          this.props.navigation.goBack();
         }}
+        title="Latest Beauty Tips"
       >
-        <Image source={{ uri: "http://marhaen.co/wp-content/uploads/2019/01/beautiful-nature-wallpaper-for-mobile-download-coloured-beauty-of-phone-background.jpg" }} style={Style.drawerCover} />
-        <Content style={Style.mainDrawer} >
-
-          <Grid >
+        <Image
+          source={{
+            uri:
+              "http://marhaen.co/wp-content/uploads/2019/01/beautiful-nature-wallpaper-for-mobile-download-coloured-beauty-of-phone-background.jpg"
+          }}
+          style={Style.drawerCover}
+        />
+        <Content style={Style.mainDrawer}>
+          <Grid>
             <Text
               style={{
                 padding: 10,
@@ -66,61 +74,64 @@ class LatestTips extends Component {
                 {!this.state.tips ? (
                   <Spinner />
                 ) : (
-                    this.state.tips.map(tip => {
-                      const {
-                        id,
-                        post_featured_images,
-                        post_title,
-                        post_slug
-                      } = tip;
-                      return (
-                        <Button
-                          transparent
-                          key={id}
-                          style={Style.listingTip}
-                          onPress={() => {
-                            this.props.navigation.push("Detail", {
-                              post_slug,
-                              id
-                            });
-                          }}
-                        >
-                          <Icon name="arrow-dropright-circle" style={Style.detailIconStyling} />
-                          <Row>
-                            <Col style={{ width: 100, height: 100 }}>
-                              <Image
-                                source={{
-                                  uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
-                                }}
-                                style={{ width: "100%", height: "100%" }}
-                              />
-                            </Col>
-                            <Col>
-                              <Text
-                                style={{
-                                  fontSize: 16,
-                                  fontWeight: "bold",
-                                  color: "white"
-                                }}
-                              >
-                                {post_title}
-                              </Text>
-                              <Text
-                                style={{
-                                  textTransform: "capitalize",
-                                  fontSize: 12,
-                                  color: "white"
-                                }}
-                              >
-                                {post_title}&nbsp; for you. Click To read in
-                                detail
+                  this.state.tips.map(tip => {
+                    const {
+                      id,
+                      post_featured_images,
+                      post_title,
+                      post_slug
+                    } = tip;
+                    return (
+                      <Button
+                        transparent
+                        key={id}
+                        style={Style.listingTip}
+                        onPress={() => {
+                          this.props.navigation.push("Detail", {
+                            post_slug,
+                            id
+                          });
+                        }}
+                      >
+                        <Icon
+                          name="arrow-dropright-circle"
+                          style={Style.detailIconStyling}
+                        />
+                        <Row>
+                          <Col style={{ width: 100, height: 100 }}>
+                            <Image
+                              source={{
+                                uri: `https://www.winsomeglow.com/images/posts/featured/${post_featured_images}`
+                              }}
+                              style={{ width: "100%", height: "100%" }}
+                            />
+                          </Col>
+                          <Col>
+                            <Text
+                              style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "white"
+                              }}
+                            >
+                              {post_title}
                             </Text>
-                            </Col>
-                          </Row>
-                        </Button>
-                      );
-                    })
-                  )}
+                            <Text
+                              style={{
+                                textTransform: "capitalize",
+                                fontSize: 12,
+                                color: "white"
+                              }}
+                            >
+                              {post_title}&nbsp; for you. Click To read in
+                              detail
+                            </Text>
+                          </Col>
+                        </Row>
+                      </Button>
+                    );
+                  })
+                )}
               </Col>
             </Row>
           </Grid>

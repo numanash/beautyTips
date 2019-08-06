@@ -1,10 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Image
-} from "react-native";
+import { StyleSheet, Image } from "react-native";
 import {
   Grid,
   Content,
@@ -16,7 +13,10 @@ import {
   Button,
   List,
   ListItem,
-  Thumbnail, Left, Body, Right
+  Thumbnail,
+  Left,
+  Body,
+  Right
 } from "native-base";
 import Pagination from "../Utils/Pagination";
 import { withNavigation, DrawerActions } from "react-navigation";
@@ -59,7 +59,10 @@ class TipsListing extends Component {
         ? (currentPage = 1)
         : (currentPage = this.state.currentPage);
       fetch(`https://www.winsomeglow.com/api/admin/posts?page=${currentPage}`)
-        .then(res => res.json())
+        .then(res => {
+          console.log({ res });
+          return res.json();
+        })
         .then(result => {
           console.log({ result });
           console.log({ props: this.props });
@@ -204,38 +207,77 @@ class TipsListing extends Component {
       //   </View>
       // </View>
       <Layout
-        onPress={() => {
-          this.props.navigation.dispatch(DrawerActions.openDrawer());
+        goBack={() => {
+          this.props.navigation.goBack();
         }}
+        title="Random Beauty Tips"
+        customFooter={
+          <Pagination
+            onPressNext={() => {
+              this.setState(prevState => {
+                return {
+                  currentPage: prevState.currentPage + 1,
+                  tips: undefined
+                };
+              });
+            }}
+            onPressPrevious={() => {
+              this.setState(prevState => {
+                return {
+                  currentPage: prevState.currentPage - 1,
+                  tips: undefined
+                };
+              });
+            }}
+            currentPage={this.state.currentPage}
+            lastPage={this.state.lastPage}
+            totalTips={this.state.totalTips}
+            perPage={this.state.perPage}
+          />
+        }
       >
-
-
-
         {/* <Image source={{ uri: "http://marhaen.co/wp-content/uploads/2019/01/beautiful-nature-wallpaper-for-mobile-download-coloured-beauty-of-phone-background.jpg" }} style={Style.drawerCover} /> */}
-        <Content  >
-          {!this.state.tips ? <Spinner /> : (
-            <List dataArray={this.state.tips} renderRow={tip =>
-              <ListItem thumbnail>
-                <Left>
-                  <Thumbnail square source={{ uri: tip.post_featured_images }} />
-                </Left>
-                <Body>
-                  <Text>{tip.post_title}</Text>
-                  <Text note numberOfLines={1}>{tip.post_title}</Text>
-                </Body>
-                <Right>
-                  <Button transparent onPress={() => {
-                    this.props.navigation.push("Detail", {
-                      post_slug: tip.post_slug,
-                      id: tip.id
-                    });
-                  }}>
-                    <Text>View</Text>
-                  </Button>
-                </Right>
-              </ListItem>
-
-            } />
+        <Content>
+          {!this.state.tips ? (
+            <Spinner />
+          ) : (
+            <List
+              dataArray={this.state.tips}
+              renderRow={tip => (
+                <ListItem thumbnail>
+                  <Left style={{ width: 100, height: 100 }}>
+                    <Thumbnail
+                      square
+                      style={{ width: "100%", height: "100%" }}
+                      source={{
+                        uri: `https://www.winsomeglow.com/images/posts/featured/${
+                          tip.post_featured_images
+                        }`
+                      }}
+                    />
+                  </Left>
+                  <Body>
+                    <Text>{tip.post_title}</Text>
+                    <Text note numberOfLines={1}>
+                      {tip.post_title}
+                    </Text>
+                  </Body>
+                  <Right>
+                    <Button
+                      transparent
+                      onPress={() => {
+                        this.props.navigation.push("Detail", {
+                          post_slug: tip.post_slug,
+                          id: tip.id
+                        });
+                      }}
+                    >
+                      <Text>View</Text>
+                    </Button>
+                  </Right>
+                </ListItem>
+              )}
+            />
           )}
 
           {/* <Grid >
@@ -315,7 +357,6 @@ class TipsListing extends Component {
        */}
         </Content>
       </Layout>
-
     );
   }
 }

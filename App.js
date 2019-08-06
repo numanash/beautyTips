@@ -104,7 +104,8 @@ const Drawer = createDrawerNavigator(
     },
     Listing: {
       screen: TipsListing
-    }
+    },
+    LatestTips: { screen: LatestTips }
   },
   {
     initialRouteName: "Home",
@@ -141,7 +142,8 @@ const MainNavigator = createStackNavigator(
     Drawer: { screen: Drawer },
     Home: { screen: HomeScreen },
     Detail: { screen: TipsDetail },
-    Listing: { screen: TipsListing }
+    Listing: { screen: TipsListing },
+    LatestTips: { screen: LatestTips }
   },
   {
     initialRouteName: "Drawer",

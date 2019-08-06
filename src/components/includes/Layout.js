@@ -26,7 +26,13 @@ class Layout extends Component {
       title: this.props.title ? this.props.title : "Beauty Tips"
     };
   }
-
+  componentWillReceiveProps(props) {
+    if (props.title !== this.props.title) {
+      this.setState({
+        title: props.title
+      });
+    }
+  }
   render() {
     console.log({ p: this.props });
     return (
@@ -43,7 +49,7 @@ class Layout extends Component {
             </Left>
           )}
           <Body>
-            <Title>{this.state.title}</Title>
+            <Title numberOfLines={1}>{this.state.title}</Title>
           </Body>
           {this.props.goBack && (
             <Right>
@@ -55,20 +61,35 @@ class Layout extends Component {
         </Header>
         {this.props.children}
         <Footer>
-          <FooterTab style={{ backgroundColor: "#0e0b16" }}>
-            <Text
-              style={{
-                textAlign: "center",
-                width: "100%",
-                height: "100%",
-                color: "white",
-                textAlignVertical: "center"
-              }}
-            >
-              Developed with Love{" "}
-              <Icon name="heart" style={{ color: "white" }} />
-            </Text>
-          </FooterTab>
+          <Grid>
+            {this.props.customFooter && (
+              <Row
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  backgroundColor: "#0e0b16"
+                }}
+              >
+                {this.props.customFooter}
+              </Row>
+            )}
+            <Row>
+              <FooterTab style={{ backgroundColor: "#0e0b16" }}>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    height: "100%",
+                    color: "white",
+                    textAlignVertical: "center"
+                  }}
+                >
+                  Developed with Love &nbsp;
+                  <Icon name="heart" style={{ color: "white" }} />
+                </Text>
+              </FooterTab>
+            </Row>
+          </Grid>
         </Footer>
       </Container>
     );

@@ -12,8 +12,8 @@ import {
   Badge
 } from "native-base";
 import styles from "./style";
-const drawerCover = require("../../../assets/images/drawer-cover.png");
-const drawerImage = require("../../../assets/images/logo-kitchen-sink.png");
+const drawerCover = require("../../../assets/images/beauty-tipz-back.png");
+const drawerImage = require("../../../assets/images/beauty-tipz2.png");
 const datas = [
   {
     name: "Home",
@@ -24,6 +24,12 @@ const datas = [
   {
     name: "All Tips",
     route: "Listing",
+    icon: "ios-list-box",
+    bg: "#C5F442"
+  },
+  {
+    name: "Latest Tips",
+    route: "LatestTips",
     icon: "ios-list-box",
     bg: "#C5F442"
   }
@@ -49,6 +55,7 @@ class SideBar extends Component {
           style={{ flex: 1, backgroundColor: "#fff", top: -1 }}
         >
           <Image source={drawerCover} style={styles.drawerCover} />
+          {/* <Text style={styles.drawerImage}>Beauty Tips 123</Text> */}
           <Image square style={styles.drawerImage} source={drawerImage} />
           <List
             dataArray={datas}
