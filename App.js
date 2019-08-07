@@ -40,6 +40,10 @@ import { Root } from "native-base";
 import TipsListing from "./src/components/Tips/TipsListing";
 import LatestTips from "./src/components/Tips/LatestTips";
 import HomeScreen from "./src/components/HomeScreen";
+import SkinCareListing from "./src/components/Tips/SkinCare/SkinCareListing";
+import NailsListing from "./src/components/Tips/Nails/NailsListing";
+import MakeupListing from "./src/components/Tips/MakeUpListing";
+import HairListing from "./src/components/Tips/HairListing";
 
 // Color Scheme
 
@@ -47,13 +51,6 @@ import HomeScreen from "./src/components/HomeScreen";
 // #a239ca fuschia
 // #4717f6 jewel
 // #e7dfdd
-
-// class HomeScreen extends React.Component {
-//   state = {};
-//   render() {
-//     return <LatestTips />;
-//   }
-// }
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -105,7 +102,12 @@ const Drawer = createDrawerNavigator(
     Listing: {
       screen: TipsListing
     },
-    LatestTips: { screen: LatestTips }
+    LatestTips: { screen: LatestTips },
+    SkinCareTips: { screen: SkinCareListing },
+    NailsTips: { screen: NailsListing },
+    MakeupListing: { screen: MakeupListing },
+    HairTips: { screen: HairListing },
+    DIYBeautyTips: { screen: DIYBeautyTips }
   },
   {
     initialRouteName: "Home",
@@ -116,34 +118,18 @@ const Drawer = createDrawerNavigator(
   }
 );
 
-// const MainNavigator = createStackNavigator(
-//   {
-//     Home: {
-//       screen: HomeScreen,
-//       navigationOptions: ({ navigation }) => ({
-//         header: props => <AppHeader props={props} />
-//       })
-//     },
-//     Detail: {
-//       screen: TipsDetail,
-//       navigationOptions: {
-//         header: null
-//       }
-//     }
-//   },
-//   {
-//     initialRouteName: "Home",
-//     headerMode: "screen"
-//   }
-// );
-
 const MainNavigator = createStackNavigator(
   {
     Drawer: { screen: Drawer },
     Home: { screen: HomeScreen },
     Detail: { screen: TipsDetail },
     Listing: { screen: TipsListing },
-    LatestTips: { screen: LatestTips }
+    LatestTips: { screen: LatestTips },
+    NailsTips: { screen: NailsListing },
+    SkinCareTips: { screen: SkinCareListing },
+    MakeupListing: { screen: MakeupListing },
+    HairTips: { screen: HairListing },
+    DIYBeautyTips: { screen: DIYBeautyTips }
   },
   {
     initialRouteName: "Drawer",

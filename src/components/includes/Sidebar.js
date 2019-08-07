@@ -22,7 +22,7 @@ const datas = [
     bg: "#C5F4F2"
   },
   {
-    name: "All Tips",
+    name: "Random Beauty Tips",
     route: "Listing",
     icon: "ios-list-box",
     bg: "#C5F442"
@@ -30,6 +30,24 @@ const datas = [
   {
     name: "Latest Tips",
     route: "LatestTips",
+    icon: "ios-list-box",
+    bg: "#C5F442"
+  },
+  {
+    name: "Nail Tips",
+    route: "NailsTips",
+    icon: "ios-list-box",
+    bg: "#C5F4F2"
+  },
+  {
+    name: "Skin Care Tips",
+    route: "SkinCareTips",
+    icon: "ios-list-box",
+    bg: "#C5F442"
+  },
+  {
+    name: "Make Up Tips",
+    route: "MakeupListing",
     icon: "ios-list-box",
     bg: "#C5F442"
   }

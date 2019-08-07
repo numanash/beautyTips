@@ -17,6 +17,7 @@ import {
   Text
 } from "native-base";
 import Layout from "../includes/Layout";
+import LatestTips from "./LatestTips";
 
 class TipsDetail extends Component {
   constructor(props) {
@@ -27,21 +28,40 @@ class TipsDetail extends Component {
   }
   componentDidMount() {
     const { navigation } = this.props;
-    fetch(
-      `https://www.winsomeglow.com/api/posts/${navigation.getParam(
-        "id"
-      )}/${navigation.getParam("post_slug")}`
-    )
-      .then(res => res.json())
-      .then(result => {
-        console.log({ result });
-        this.setState({
-          tip: result.post
+    const customFetch = navigation.getParam("customFetch");
+    console.log({ customFetch });
+    if (customFetch) {
+      fetch(navigation.getParam("customFetchUrl"))
+        .then(res => {
+          return res.json();
+        })
+        .then(result => {
+          console.log({ result });
+          const { Title, Content, Image } = result;
+          this.setState({
+            tip: {
+              ...result,
+              post_title: Title,
+              post_content: Content
+            }
+          });
         });
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    } else {
+      fetch(
+        `https://www.winsomeglow.com/api/posts/${navigation.getParam(
+          "id"
+        )}/${navigation.getParam("post_slug")}`
+      )
+        .then(res => res.json())
+        .then(result => {
+          this.setState({
+            tip: result.post
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -50,7 +70,68 @@ class TipsDetail extends Component {
 
   render() {
     const { tip } = this.state;
-
+    let post_content = tip
+      ? this.props.navigation.getParam("customFetch") !== true
+        ? `<!DOCTYPE html>
+    <html>
+    <head>
+   
+    <style>
+      *,a,p,span,div,b,strong{
+        font-size: 50px !important;
+        text-align: center;
+      }
+      img{
+        text-align:center;
+        margin 0 auto;
+      }
+      li,ul{
+        text-align:left !important;
+      }
+      
+    </style>
+    </head>
+    <body>
+    
+    <div id="post_content">
+    ${tip.post_content
+      .replace(/..\/..\/..\//g, "http://www.winsomeglow.com/")
+      .replace(/<a href/g, '<a href="#"')
+      .replace(/POPxo|POP/g, "Beauty Tipz")}</div>
+    ${<LatestTips />}
+    </body>
+    </html>`
+        : (post_content = `<!DOCTYPE html>
+    <html>
+    <head>
+   
+    <style>
+      *,a,p,span,div,b,strong{
+        font-size: 50px !important;
+        text-align: center;
+      }
+      img{
+        text-align:center;
+        margin 0 auto;
+      }
+      li,ul{
+        text-align:left !important;
+      }
+      
+    </style>
+    </head>
+    <body>
+    
+    <div id="post_content">
+    <h2>${tip.post_title}</h2><br/>
+    <img src='${tip.Image}' /><br />
+    ${tip.post_content
+      .replace(/..\/..\/..\//g, "http://www.winsomeglow.com/")
+      .replace(/<a href/g, "<a ")
+      .replace(/POPxo|POP/g, "Beauty Tipz")}</div>
+    </body>
+    </html>`)
+      : undefined;
     return (
       <Layout
         goBack={() => {
@@ -63,23 +144,8 @@ class TipsDetail extends Component {
             <WebView
               originWhitelist={["*"]}
               source={{
-                html: `<div id="post_content">${tip.post_content.replace(
-                  /..\/..\/..\//g,
-                  "http://www.winsomeglow.com/"
-                )}`
+                html: post_content
               }}
-              injectedJavaScript={`var childs=document.getElementById('post_content').children;
-                            for(i=0;i<childs.length;i++)
-                            {
-                                childs[i].style.fontSize = '50px';
-                            }
-                                    var spans = document.getElementsByTagName('span');
-                                   if(spans.length > 0){
-                                    for(var j=0;j<spans.length;j++){
-                                        spans[j].style.fontSize= '50px';
-                                    }
-                                }
-                            `}
               startInLoadingState={true}
               automaticallyAdjustContentInsets={false}
             />
