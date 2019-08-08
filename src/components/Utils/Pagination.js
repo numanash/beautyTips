@@ -30,7 +30,7 @@ const Pagination = props => {
         color="green"
       /> */}
       <Text style={{ paddingVertical: 10, color: "#FFFFFF" }}>
-        {props.currentPage} of {props.lastPage} Page
+        Page: {props.currentPage}
       </Text>
       <TouchableOpacity
         onPress={props.onPressNext}

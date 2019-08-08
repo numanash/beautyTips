@@ -12,7 +12,7 @@ import {
   Badge
 } from "native-base";
 import styles from "./style";
-const drawerCover = require("../../../assets/images/beauty-tipz-back.png");
+const drawerCover = require("../../../assets/images/app-background.jpg");
 const drawerImage = require("../../../assets/images/beauty-tipz2.png");
 const datas = [
   {
@@ -60,9 +60,6 @@ class SideBar extends Component {
       shadowOffsetWidth: 1,
       shadowRadius: 4
     };
-  }
-  componentDidMount() {
-    console.log({ props: this.props });
   }
 
   render() {

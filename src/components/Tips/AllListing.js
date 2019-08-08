@@ -37,7 +37,14 @@ class AllListing extends Component {
     fetch(
       `https://api.popxo.com/api/v14/app_posts/category_feed/?&category=beauty&sub_category=${
         this.props.subCategory
-      }&section=latest_stories&page=1&locale=en`
+      }&section=latest_stories&page=1&locale=en`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
     )
       .then(res => res.json())
       .then(result => {
@@ -60,7 +67,14 @@ class AllListing extends Component {
       fetch(
         `https://api.popxo.com/api/v14/app_posts/category_feed/?&category=beauty&sub_category=${
           this.props.subCategory
-        }&section=latest_stories&page=${currentPage}&locale=en`
+        }&section=latest_stories&page=${currentPage}&locale=en`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          }
+        }
       )
         .then(res => {
           return res.json();
@@ -118,9 +132,21 @@ class AllListing extends Component {
             <Spinner />
           ) : (
             <List
+              key={(item, id) => item.id.toString()}
               dataArray={this.state.tips}
               renderRow={tip => (
-                <ListItem thumbnail>
+                <ListItem
+                  thumbnail
+                  key={tip.id.toString()}
+                  onPress={() => {
+                    this.props.navigation.push("Detail", {
+                      customFetch: true,
+                      customFetchUrl: `https://api.popxo.com/api/v13/app_posts/fetch_article_content?url=${
+                        tip.slug
+                      }&mobile=true&app_version=363&sp=4bff4f4c-c90a-4afe-b6ca-64717c816ca6&locale=en`
+                    });
+                  }}
+                >
                   <Left style={{ width: 100, height: 100 }}>
                     <Thumbnail
                       square

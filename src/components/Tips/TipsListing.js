@@ -242,6 +242,7 @@ class TipsListing extends Component {
             <Spinner />
           ) : (
             <List
+              key={this._keyExtractor}
               dataArray={this.state.tips}
               renderRow={tip => (
                 <ListItem thumbnail>

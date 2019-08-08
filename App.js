@@ -7,16 +7,7 @@
  */
 
 import React, { Fragment } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Image,
-  StatusBar,
-  TouchableOpacity
-} from "react-native";
+import { StyleSheet } from "react-native";
 import {
   createStackNavigator,
   createAppContainer,
@@ -24,13 +15,6 @@ import {
   DrawerActions
 } from "react-navigation";
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions
-} from "react-native/Libraries/NewAppScreen";
 import TipsDetail from "./src/components/Tips/TipsDetail";
 import AppHeader from "./src/components/includes/AppHeader";
 import Main from "./src/Main";
@@ -44,6 +28,7 @@ import SkinCareListing from "./src/components/Tips/SkinCare/SkinCareListing";
 import NailsListing from "./src/components/Tips/Nails/NailsListing";
 import MakeupListing from "./src/components/Tips/MakeUpListing";
 import HairListing from "./src/components/Tips/HairListing";
+import DIYBeautyTips from "./src/components/Tips/DIYBeautyTips";
 
 // Color Scheme
 
@@ -52,44 +37,44 @@ import HairListing from "./src/components/Tips/HairListing";
 // #4717f6 jewel
 // #e7dfdd
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter
-  },
-  engine: {
-    position: "absolute",
-    right: 0
-  },
-  body: {
-    backgroundColor: Colors.white
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "600",
-    color: Colors.black
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: "400",
-    color: Colors.dark
-  },
-  highlight: {
-    fontWeight: "700"
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: "600",
-    padding: 4,
-    paddingRight: 12,
-    textAlign: "right"
-  }
-});
+// const styles = StyleSheet.create({
+//   scrollView: {
+//     backgroundColor: Colors.lighter
+//   },
+//   engine: {
+//     position: "absolute",
+//     right: 0
+//   },
+//   body: {
+//     backgroundColor: Colors.white
+//   },
+//   sectionContainer: {
+//     marginTop: 32,
+//     paddingHorizontal: 24
+//   },
+//   sectionTitle: {
+//     fontSize: 24,
+//     fontWeight: "600",
+//     color: Colors.black
+//   },
+//   sectionDescription: {
+//     marginTop: 8,
+//     fontSize: 18,
+//     fontWeight: "400",
+//     color: Colors.dark
+//   },
+//   highlight: {
+//     fontWeight: "700"
+//   },
+//   footer: {
+//     color: Colors.dark,
+//     fontSize: 12,
+//     fontWeight: "600",
+//     padding: 4,
+//     paddingRight: 12,
+//     textAlign: "right"
+//   }
+// });
 
 const Drawer = createDrawerNavigator(
   {
